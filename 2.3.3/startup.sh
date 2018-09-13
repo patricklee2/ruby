@@ -63,6 +63,15 @@ if [ -f  "${RUBY_SITE_CONFIG_DIR}/gems.tgz" ]
     export ZIPPED_GEMS=1
 fi
 
+if [ "$ZIPPED_GEMS" -eq 1 ]
+  then
+    echo "running bundle install $RUBY_OPTIONS --no-deployment"
+    bundle install --no-deployment $RUBY_OPTIONS
+  else
+    echo "running bundle install $RUBY_OPTIONS --local --path vendor/bundle"
+    bundle install  $RUBY_OPTIONS --local --path vendor/bundle
+fi
+
 echo 'Running bundle check'
 if [ "$ZIPPED_GEMS" -eq 1 ]
   then
@@ -83,15 +92,6 @@ if [ "$ZIPPED_GEMS" -eq 1 ]
         echo 'missing dependencies, try redeploying'
         exit -1
     fi
-fi
-
-if [ "$ZIPPED_GEMS" -eq 1 ]
-  then
-    echo "running bundle install $RUBY_OPTIONS --no-deployment"
-    bundle install --no-deployment $RUBY_OPTIONS
-  else
-    echo "running bundle install $RUBY_OPTIONS --local --path vendor/bundle"
-    bundle install  $RUBY_OPTIONS --local --path vendor/bundle
 fi
 
 if [ -n "$GEM_PRISTINE" ]

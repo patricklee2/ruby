@@ -23,3 +23,7 @@ eval "$(rbenv init -)"
 rbenv global 2.3.3
 /opt/startup.sh "$@"
 
+# while true
+# do
+#   sleep 10
+# done
